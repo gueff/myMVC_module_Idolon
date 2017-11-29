@@ -125,6 +125,13 @@ class Index extends \Idolon
 			$this->_aRequestValue = array_values($aValue);
 		}		
 		
+		// fallbacks
+		(!isset($this->_aRequestValue[0])) ? $this->_aRequestValue[0] = 0 : false;
+		(!isset($this->_aRequestValue[1])) ? $this->_aRequestValue[1] = 0 : false;
+		(!isset($this->_aRequestValue[2])) ? $this->_aRequestValue[2] = 0 : false;
+		(!isset($this->_aRequestValue[3])) ? $this->_aRequestValue[3] = 0 : false;
+		(!isset($this->_aRequestValue[4])) ? $this->_aRequestValue[4] = 1 : false;
+		
 		return $this;
 	}
 	
