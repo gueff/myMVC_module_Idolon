@@ -80,7 +80,7 @@ Due to the Config, this will serve the Image `screenshot1.png` from the public f
 
 ### Explanation
 - The Request `http://blog.ueffing.net/image/screenshot1/png/750/352/1/`is made.
-- The Event Listener (`\MVC\Event::BIND('mvc.reflect.targetObject.after', function(){..}`) checks the current Request.
+- The Event Listener (`\MVC\Event::BIND('mvc.controller.before', function(){..}`) checks the current Request.
 - In the Config, `$aConfig['IDOLON_TOKEN']` was set to `image`. 
 - If the first string after the domain is `image` this means an image request has been detected.
 - So in this Example, the Request `http://blog.ueffing.net/image/screenshot1/png/750/352/1/` will be handled by Idolon Module.
