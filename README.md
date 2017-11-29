@@ -57,7 +57,7 @@ $aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE'] = 10;
  * Serve Images  via Idolon
  * Listen on a specific Token in QueryPath
  */
-\MVC\Event::BIND('mvc.reflect.targetObject.after', function() {	
+\MVC\Event::BIND('mvc.controller.before', function() {	
 
 	$oIdolonModelIndex = new \Idolon\Model\Index ();
 	$sIdolonToken = $oIdolonModelIndex->getIdolonToken();
