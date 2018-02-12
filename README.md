@@ -15,9 +15,28 @@ add repository to your composer.json
 ~~~
 and install.
 
+## 2. Download this Repository
+and place it inside myMVC's `modules` folder.
+Name it "Idolon". At the end it must look like this:
+~~~
+    application
+    config
+    modules
+        Idolon
+	    Controller
+	    Event
+	    Model
+	    _INSTALL
+	    README.md
+    public
+    composer.json
+    manager.php
+    README.md
+~~~
 
-## 2. Add Idolon Config
-### 2.1. Just copy the file `idolon.php` inside folder `_INSTALL/`to your config folder. Depending on your favor, this may be
+
+## 3. Add Idolon Config
+### 3.1. Just copy the file `idolon.php` inside folder `_INSTALL/`to your config folder. Depending on your favor, this may be
 
 - `/application/config/staging/MY_STAGE/`
 
@@ -25,7 +44,7 @@ or
 
 - `/config/`
 
-### 2.2. Modify the config
+### 3.2. Modify the config
 Modify the config so that it fit your needs.
 
 **This is the Content of the Config file `idolon.php`**
@@ -51,7 +70,7 @@ $aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE'] = 10;
 
 
 
-## 3. Activate Idolon via Event Listener
+## 4. Activate Idolon via Event Listener
 ~~~
 /**
  * Serve Images  via Idolon
