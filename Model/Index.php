@@ -78,9 +78,14 @@ class Index extends \Idolon
 	 */
 	protected function redirect()
 	{
-		$aImage = explode('.', $this->_sImage);
-		$sQuery = '/' . $this->_sIdolonToken . '/' . $aImage[0] . '/' . $aImage[1] . '/' . $this->_iDimensionX . '/' . $this->_iDimensionY . '/' . $this->_iRedirect . '/';
-
+        	$aInfo = pathinfo($this->_sImage);
+		$sQuery = '/' 
+		    . $this->_sIdolonToken . '/' 
+		    . $aInfo['filename'] . '/' 
+		    . $aInfo['extension'] . '/' 
+		    . $this->_iDimensionX . '/' 
+		    . $this->_iDimensionY . '/' 
+		    . $this->_iRedirect . '/';
 		$sRedirect = "Location: " . $sQuery;
 		$this->log($sRedirect);
 		header($sRedirect);
