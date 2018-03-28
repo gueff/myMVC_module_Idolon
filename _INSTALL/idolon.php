@@ -1,5 +1,8 @@
 <?php
 
+// float numbers need to be presented C-style
+setlocale(LC_NUMERIC, 'C');
+
 /**
  * Idolon config
  */
@@ -16,4 +19,9 @@ $aConfig['IDOLON_TOKEN'] = 'image';
 // how many variations of an image should be stored for maximum
 $aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE'] = 10;
 
-
+/**
+ * if activated,
+ * an image cannot resize to higher values than its dimensions, but only to lower ones
+ * true: prevents resizing to higher x or y values than original has
+ */
+$aConfig['IDOLON_PREVENT_OVERSIZING'] = true;
