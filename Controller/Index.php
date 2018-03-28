@@ -40,7 +40,7 @@ class Index implements \MVC\MVCInterface\Controller
 		// start event listener
 		\Idolon\Event\Index::getInstance ();
 	}
-	
+
 	/**
 	 * Constructor
 	 * 
@@ -49,7 +49,9 @@ class Index implements \MVC\MVCInterface\Controller
 	 */
 	public function __construct ()
 	{		
-		$this->_oIdolonModelIndex = new \Idolon\Model\Index ();
+		$this->_oIdolonModelIndex = new \Idolon\Model\Index (array(
+			'bPreventOversizing' => \MVC\Registry::get('IDOLON_PREVENT_OVERSIZING')
+		));
 	}
 
 	/**
@@ -59,7 +61,7 @@ class Index implements \MVC\MVCInterface\Controller
 	 * @return void
 	 */
 	public function index ()
-	{
+	{   
 		$this->_oIdolonModelIndex			
 			->setImagePath(\MVC\Registry::get('IDOLON_IMAGE_PATH'))
 			->setIdolonToken(\MVC\Registry::get('IDOLON_TOKEN'))
@@ -67,7 +69,7 @@ class Index implements \MVC\MVCInterface\Controller
 			->run()
 			;
 	}
-	
+
 	/**
 	 * Destructor
 	 * 
