@@ -78,9 +78,8 @@ $aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE'] = 10;
  */
 \MVC\Event::BIND('mvc.controller.before', function() {	
 
-	$oIdolonModelIndex = new \Idolon\Model\Index ();
-	$sIdolonToken = $oIdolonModelIndex->getIdolonToken();
-
+    $sIdolonToken = \MVC\Registry::get('IDOLON_TOKEN');
+    
 	// image request detected; delegate to Idolon
 	if	('/' . $sIdolonToken . '/' ===	substr(\MVC\Request::getInstance()->GETCURRENTREQUEST()['path'], 0, strlen('/' . $sIdolonToken . '/')))
 	{				
