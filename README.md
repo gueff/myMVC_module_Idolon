@@ -8,6 +8,7 @@ This is a Module for [myMVC](https://github.com/gueff/myMVC) which integrates th
 - Linux OS
 - shell_exec()
 - imagemagick
+- gueff/idolon 1.0.2
 - [myMVC 1.1.1](https://github.com/gueff/myMVC/releases/tag/1.1.1)
 
 
@@ -16,7 +17,7 @@ add repository to your composer.json
 ~~~
 {
 	"require": {
-		"gueff/idolon":"dev-master"
+		"gueff/idolon":"1.0.2"
 	}
 }
 ~~~
