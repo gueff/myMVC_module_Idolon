@@ -14,12 +14,18 @@
  */
 namespace Idolon\Controller;
 
+
 /**
  * Index
  * @implements \MVC\MVCInterface\Controller
  */
 class Index implements \MVC\MVCInterface\Controller
-{		
+{
+    /**
+     * @var array
+     */
+    protected $aConfig = array();
+
 	/**
 	 * Model Object
 	 * 
@@ -37,37 +43,35 @@ class Index implements \MVC\MVCInterface\Controller
 	 */
 	public static function __preconstruct ()
 	{
-		// start event listener
-		\Idolon\Event\Index::getInstance ();
+	    ;
 	}
 
-	/**
-	 * Constructor
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function __construct ()
-	{		
-		$this->_oIdolonModelIndex = new \Idolon\Model\Index (array(
-			'bPreventOversizing' => \MVC\Registry::get('IDOLON_PREVENT_OVERSIZING')
+    /**
+     * Index constructor.
+     * @param array $aConfig
+     */
+	public function __construct (array $aConfig = array())
+	{
+	    $this->aConfig = $aConfig;
+		$this->_oIdolonModelIndex = new \Idolon\Model\Index(array(
+			'bPreventOversizing' => $this->aConfig['IDOLON_PREVENT_OVERSIZING']
 		));
 	}
 
 	/**
 	 * index
-	 * 
 	 * @access public
-	 * @return void
 	 */
 	public function index ()
-	{   
-		$this->_oIdolonModelIndex			
-			->setImagePath(\MVC\Registry::get('IDOLON_IMAGE_PATH'))
-			->setIdolonToken(\MVC\Registry::get('IDOLON_TOKEN'))
-			->setMaxCacheFilesForImage(\MVC\Registry::get('IDOLON_MAX_CACHE_FILES_FOR_IMAGE'))
+	{
+        $bSuccess = $this->_oIdolonModelIndex
+			->setImagePath($this->aConfig['IDOLON_IMAGE_PATH'])
+			->setIdolonToken($this->aConfig['IDOLON_TOKEN'])
+			->setMaxCacheFilesForImage($this->aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE'])
 			->run()
 			;
+
+        exit();
 	}
 
 	/**
