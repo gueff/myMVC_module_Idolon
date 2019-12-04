@@ -8,7 +8,7 @@ This is a Module for [myMVC](https://github.com/gueff/myMVC) which integrates th
 - Linux OS
 - shell_exec()
 - imagemagick
-- [myMVC](https://github.com/gueff/myMVC)
+- [myMVC 1.1.1](https://github.com/gueff/myMVC/releases/tag/1.1.1)
 
 
 ## 1. Add Idolon Library
