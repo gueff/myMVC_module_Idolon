@@ -56,25 +56,36 @@ setlocale(LC_NUMERIC, 'C');
 /**
  * Idolon config
  */
-// path to public Images folder
-$aConfig['IDOLON_IMAGE_PATH'] = $aConfig['MVC_BASE_PATH'] . '/public/Blogixx/images/';
+$aConfig['IDOLON'] = array(
 
-// Token
-// This is the string directly located after domain which indicates an image request
-// e.g. http://www.example.com/image/screenshot/png/200/100/1/
-// Here in this example, "image" ist the token
-// Note: Idolon will automatically listen for (/image/) then.
-$aConfig['IDOLON_TOKEN'] = 'image';
+    // Token
+    // This is the string directly located after domain which indicates an image request
+    // e.g. http://www.example.com/image/screenshot/png/200/100/1/
+    // Here in this example, "@image" ist the token
+    // Note: Idolon will automatically listen for (/@image/) then.
+    '@image' => array(
+        'IDOLON_IMAGE_PATH' => $aConfig['MVC_BASE_PATH'] . '/public/images/default/',
+//        'IDOLON_MAX_CACHE_FILES_FOR_IMAGE' => 10,
+//        'IDOLON_PREVENT_OVERSIZING' => true,
+    ),
 
-// how many variations of an image should be stored for maximum
-$aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE'] = 10;
+    // Other Images
+    '@other' => array(
+        'IDOLON_IMAGE_PATH' => $aConfig['MVC_BASE_PATH'] . '/public/images/other/',
+//        'IDOLON_MAX_CACHE_FILES_FOR_IMAGE' => 10,
+//        'IDOLON_PREVENT_OVERSIZING' => true,
+    ),
 
-/**
- * if activated,
- * an image cannot resize to higher values than its dimensions, but only to lower ones
- * true: prevents resizing to higher x or y values than original has
- */
-$aConfig['IDOLON_PREVENT_OVERSIZING'] = true;
+    // how many variations of an image should be stored for maximum
+    'IDOLON_MAX_CACHE_FILES_FOR_IMAGE' => 10,
+
+    /**
+     * if activated,
+     * an image cannot resize to higher values than its dimensions, but only to lower ones
+     * true: prevents resizing to higher x or y values than original has
+     */
+    'IDOLON_PREVENT_OVERSIZING' => true,
+);
 ~~~
 
 
@@ -87,29 +98,46 @@ $aConfig['IDOLON_PREVENT_OVERSIZING'] = true;
  */
 \MVC\Event::BIND('mvc.controller.before', function() {	
 
-    $sIdolonToken = \MVC\Registry::get('IDOLON_TOKEN');
-    
-	// image request detected; delegate to Idolon
-	if	('/' . $sIdolonToken . '/' ===	substr(\MVC\Request::getInstance()->GETCURRENTREQUEST()['path'], 0, strlen('/' . $sIdolonToken . '/')))
-	{				
-		$oControllerIdolon = new \Idolon\Controller\Index();
-		$oControllerIdolon->index();
-		exit();
-	}				
+        // get token
+        $sToken = current(preg_split('@/@', \MVC\Request::getInstance()->GETCURRENTREQUEST()['path'], NULL, PREG_SPLIT_NO_EMPTY));
+
+        if (isset(\MVC\Registry::get('IDOLON')[$sToken]))
+        {
+            $aConfig = \MVC\Registry::get('IDOLON')[$sToken];
+            $aConfig['IDOLON_TOKEN'] = $sToken;
+
+            (!isset($aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE']))
+                ? $aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE'] = \MVC\Registry::get('IDOLON')['IDOLON_MAX_CACHE_FILES_FOR_IMAGE']
+                : false;
+            (!isset($aConfig['IDOLON_PREVENT_OVERSIZING']))
+                ? $aConfig['IDOLON_PREVENT_OVERSIZING'] = \MVC\Registry::get('IDOLON')['IDOLON_PREVENT_OVERSIZING']
+                : false;
+
+            // Start Idolon
+            $oControllerIdolon = new \Idolon\Controller\Index($aConfig);
+            $oControllerIdolon->index();
+        }				
 });	
 ~~~
 
 ## Example
 Due to the Config, this will serve the Image `screenshot1.png` from the public folder `/images/` with 750x352 px:
 ~~~
-<img src="http://blog.ueffing.net/image/screenshot1/png/750/352/1/">
+<!-- request image with original width + heigt -->
+<img src="http://www.example.com/@image/screenshot1/png/">
+
+<!-- request image with width of 750px; height will be calculated -->
+<img src="http://www.example.com/@image/screenshot1/png/750/">
+
+<!-- request image with width of 750px and height of 352px; redirect with proper dimension request if necessary -->
+<img src="http://www.example.com/@image/screenshot1/png/750/300/1/">
 ~~~
 
 ### Explanation
-- The Request `http://blog.ueffing.net/image/screenshot1/png/750/352/1/`is made.
+- The Request `http://www.example.com/image/screenshot1/png/750/352/1/`is made.
 - The Event Listener (`\MVC\Event::BIND('mvc.controller.before', function(){..}`) checks the current Request.
 - In the Config, `$aConfig['IDOLON_TOKEN']` was set to `image`. 
 - If the first string after the domain is `image` this means an image request has been detected.
-- So in this Example, the Request `http://blog.ueffing.net/image/screenshot1/png/750/352/1/` will be handled by Idolon Module.
+- So in this Example, the Request `http://www.example.com/image/screenshot1/png/750/352/1/` will be handled by Idolon Module.
 
 
