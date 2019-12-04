@@ -1,7 +1,14 @@
 # Idolon Module for myMVC
-Just add this module to your myMVC and get it run with this 3 Steps:
+Just add this module to your [myMVC](https://github.com/gueff/myMVC) and get it run with this 3 Steps:
 
-This is a Module for myMVC (https://github.com/gueff/myMVC) which integrates the Idolon Image Server (https://github.com/gueff/idolon). Image Variation Requests become very easy.
+This is a Module for [myMVC](https://github.com/gueff/myMVC) which integrates the Idolon Image Server (https://github.com/gueff/idolon). Image Variation Requests become very easy.
+
+## Dependencies
+- php 7
+- Linux OS
+- shell_exec()
+- imagemagick
+- [myMVC](https://github.com/gueff/myMVC)
 
 
 ## 1. Add Idolon Library
@@ -134,10 +141,9 @@ Due to the Config, this will serve the Image `screenshot1.png` from the public f
 ~~~
 
 ### Explanation
-- The Request `http://www.example.com/image/screenshot1/png/750/352/1/`is made.
+- The Request `http://www.example.com/@image/screenshot1/png/750/352/1/`is made.
 - The Event Listener (`\MVC\Event::BIND('mvc.controller.before', function(){..}`) checks the current Request.
-- In the Config, `$aConfig['IDOLON_TOKEN']` was set to `image`. 
-- If the first string after the domain is `image` this means an image request has been detected.
-- So in this Example, the Request `http://www.example.com/image/screenshot1/png/750/352/1/` will be handled by Idolon Module.
+- If the first string after the domain is `@image` this means an image request has been detected.
+- So in this Example, the Request `http://www.example.com/@image/screenshot1/png/750/352/1/` will be handled by Idolon Module.
 
 
