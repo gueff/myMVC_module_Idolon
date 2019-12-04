@@ -14,6 +14,7 @@
  */
 namespace Idolon\Model;
 
+
 /**
  * Index
  * @extends \Idolon
@@ -39,57 +40,58 @@ class Index extends \Idolon
 	private $_iMaxCacheFiles = 10;
 	
 	/**
-	 * Construcor
-	 * @access public
-	 * @return void
-	 */
+     * Index constructor.
+     * @param array $aConfig
+     */
 	public function __construct(array $aConfig = array())
 	{
 		parent::__construct($aConfig);
 	}
 	
-	/**
-	 * @access public
-	 * @return void
-	 */
+    /**
+     * @return bool
+     */
 	public function run()
-	{		
-		$this->getValuesFromRequest()
-			->setIdolonConfig();
-		
-		$sFile = $this->_sImagePath . $this->_sImage;
+	{
+		$this->getValuesFromRequest()->setIdolonConfig();
 		$aFile = glob($this->_sImagePath . $this->_sImage . '_*');
 		$iFilesExist = count($aFile);
 		$iFilesToDelete = ($iFilesExist - $this->_iMaxCacheFiles);
-		
+
 		for ($i = 0; $i < $iFilesToDelete; $i++)
 		{
 			unlink($aFile[$i]);
 		}
 
-		
-		$this->serve();
+		$bSuccess = $this->serve();
+
+		return $bSuccess;
 	}
 
 	/**
 	 * performs a redirect
-	 * @access protected 
+	 * @access protected
 	 * @return void
 	 */
 	protected function redirect()
 	{
-        	$aInfo = pathinfo($this->_sImage);
-		$sQuery = '/' 
-		    . $this->_sIdolonToken . '/' 
-		    . $aInfo['filename'] . '/' 
-		    . $aInfo['extension'] . '/' 
-		    . $this->_iDimensionX . '/' 
-		    . $this->_iDimensionY . '/' 
+        $aInfo = pathinfo($this->_sImage);
+		$sQuery = '/'
+		    . $this->_sIdolonToken . '/'
+		    . $aInfo['filename'] . '/'
+		    . $aInfo['extension'] . '/'
+		    . $this->_iDimensionX . '/'
+		    . $this->_iDimensionY . '/'
 		    . $this->_iRedirect . '/';
 		$sRedirect = "Location: " . $sQuery;
 		$this->log($sRedirect);
-		header($sRedirect);
-		exit();
+
+		// redirect nur auf anderen Path
+		if ($_SERVER['REQUEST_URI'] !== $sQuery)
+        {
+            header($sRedirect);
+            exit();
+        }
 	}
 	
 	/**
@@ -175,11 +177,10 @@ class Index extends \Idolon
 
 	/**
 	 * setter for Token
-	 * @access public
-	 * @param string $sIdolonToken
-	 * @return \Idolon\Model\Index
-	 */
-	public function setIdolonToken(string $sIdolonToken = '') : \Idolon\Model\Index
+     * @param string $sIdolonToken
+     * @return $this
+     */
+	public function setIdolonToken(string $sIdolonToken = '')
 	{
 		$this->_sIdolonToken = $sIdolonToken;
 		
@@ -188,10 +189,10 @@ class Index extends \Idolon
 	
 	/**
 	 * set max amount of variations possible to cache for a image
-	 * @param type $iMaxCacheFiles
-	 * @return \Idolon\Model\Index
-	 */
-	public function setMaxCacheFilesForImage($iMaxCacheFiles = 10) : \Idolon\Model\Index
+     * @param int $iMaxCacheFiles
+     * @return $this
+     */
+	public function setMaxCacheFilesForImage($iMaxCacheFiles = 10)
 	{
 		$this->_iMaxCacheFiles = $iMaxCacheFiles;
 		
