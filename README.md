@@ -11,19 +11,7 @@ This is a Module for [myMVC](https://github.com/gueff/myMVC) which integrates th
 - gueff/idolon 1.0.2
 - [myMVC 1.1.1](https://github.com/gueff/myMVC/releases/tag/1.1.1)
 
-
-## 1. Add Idolon Library
-add repository to your composer.json
-~~~
-{
-	"require": {
-		"gueff/idolon":"1.0.2"
-	}
-}
-~~~
-and install.
-
-## 2. Download this Repository
+## 1. Download this Repository
 and place it inside myMVC's `modules` folder.
 Name it "Idolon". At the end it must look like this:
 ~~~
@@ -32,9 +20,10 @@ Name it "Idolon". At the end it must look like this:
     modules
         Idolon
 	    Controller
+	    etc
 	    Event
 	    Model
-	    _INSTALL
+	    install.sh
 	    README.md
     public
     composer.json
@@ -42,11 +31,15 @@ Name it "Idolon". At the end it must look like this:
     README.md
 ~~~
 
+## 2. Add Idolon Library
+therefore, run install.sh
+~~~bash
+./install.sh
+~~~
 
 ## 3. Add Idolon Config
 ### 3.1. create a new config file
 Just create a new file by copying the file `etc/config/Idolon/config/develop.example` to `etc/config/Idolon/config/develop.php` 
-
 
 ### 3.2. Modify the config
 Modify the config so that it fit your needs.
