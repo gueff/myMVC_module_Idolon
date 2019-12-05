@@ -44,13 +44,9 @@ Name it "Idolon". At the end it must look like this:
 
 
 ## 3. Add Idolon Config
-### 3.1. Just copy the file `idolon.php` inside folder `_INSTALL/`to your config folder. Depending on your favor, this may be
+### 3.1. create a new config file
+Just create a new file by copying the file `etc/config/Idolon/config/develop.example` to `etc/config/Idolon/config/develop.php` 
 
-- `/application/config/staging/MY_STAGE/`
-
-or
-
-- `/config/`
 
 ### 3.2. Modify the config
 Modify the config so that it fit your needs.
