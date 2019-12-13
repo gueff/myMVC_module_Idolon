@@ -88,33 +88,25 @@ $aConfig['IDOLON'] = array(
 
 
 ## 4. Activate Idolon via Event Listener
+
+just add a listener to the `EVENT_BIND` section of your Module Config.
 ~~~
-/**
- * Serve Images  via Idolon
- * Listen on a specific Token in QueryPath
- */
-\MVC\Event::BIND('mvc.controller.before', function() {	
+$aConfig['MODULE_whatever'] = array(
 
-        // get token
-        $sToken = current(preg_split('@/@', \MVC\Request::getInstance()->GETCURRENTREQUEST()['path'], NULL, PREG_SPLIT_NO_EMPTY));
+    /**
+     * Event Bindings
+     */
+    'EVENT_BIND' => array(
 
-        if (isset(\MVC\Registry::get('IDOLON')[$sToken]))
-        {
-            $aConfig = \MVC\Registry::get('IDOLON')[$sToken];
-            $aConfig['IDOLON_TOKEN'] = $sToken;
+        /**
+         * Idolon Image Handler
+         * Listen on a specific Token in QueryPath
+         */
+        'mvc.controller.begin' => function(\MVC\DataType\DTArrayObject $oDTArrayObject) {
+            \Idolon\Event\Index::startIdolon($oDTArrayObject);
+        },
 
-            (!isset($aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE']))
-                ? $aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE'] = \MVC\Registry::get('IDOLON')['IDOLON_MAX_CACHE_FILES_FOR_IMAGE']
-                : false;
-            (!isset($aConfig['IDOLON_PREVENT_OVERSIZING']))
-                ? $aConfig['IDOLON_PREVENT_OVERSIZING'] = \MVC\Registry::get('IDOLON')['IDOLON_PREVENT_OVERSIZING']
-                : false;
-
-            // Start Idolon
-            $oControllerIdolon = new \Idolon\Controller\Index($aConfig);
-            $oControllerIdolon->index();
-        }				
-});	
+    );
 ~~~
 
 ## Example
