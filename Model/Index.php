@@ -50,6 +50,7 @@ class Index extends \Idolon
 	
     /**
      * @return bool
+     * @throws \ReflectionException
      */
 	public function run()
 	{
@@ -108,9 +109,9 @@ class Index extends \Idolon
 		[4]=>
 		string(1) "1"
 	  }
-	 * @access protected 
-	 * @return \Idolon\Model\Index
-	 */	
+     * @return Index
+     * @throws \ReflectionException
+     */
 	protected function getValuesFromRequest() : \Idolon\Model\Index
 	{
 		$aValue = array_values(

@@ -35,7 +35,7 @@ class Index
 	 */
 	protected function __construct()
 	{
-
+        ;
 	}
 
 	/**
@@ -74,16 +74,16 @@ class Index
         // get token
         $sToken = current(preg_split('@/@', \MVC\Request::getInstance()->GETCURRENTREQUEST()['path'], NULL, PREG_SPLIT_NO_EMPTY));
 
-        if (isset(\MVC\Registry::get('IDOLON')[$sToken]))
+        if (isset(\MVC\Registry::get('MODULE_IDOLON')[$sToken]))
         {
-            $aConfig = \MVC\Registry::get('IDOLON')[$sToken];
+            $aConfig = \MVC\Registry::get('MODULE_IDOLON')[$sToken];
             $aConfig['IDOLON_TOKEN'] = $sToken;
 
             (!isset($aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE']))
-                ? $aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE'] = \MVC\Registry::get('IDOLON')['IDOLON_MAX_CACHE_FILES_FOR_IMAGE']
+                ? $aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE'] = \MVC\Registry::get('MODULE_IDOLON')['IDOLON_MAX_CACHE_FILES_FOR_IMAGE']
                 : false;
             (!isset($aConfig['IDOLON_PREVENT_OVERSIZING']))
-                ? $aConfig['IDOLON_PREVENT_OVERSIZING'] = \MVC\Registry::get('IDOLON')['IDOLON_PREVENT_OVERSIZING']
+                ? $aConfig['IDOLON_PREVENT_OVERSIZING'] = \MVC\Registry::get('MODULE_IDOLON')['IDOLON_PREVENT_OVERSIZING']
                 : false;
 
             // Start Idolon

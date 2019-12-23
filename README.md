@@ -4,13 +4,15 @@ Just add this module to your [myMVC](https://github.com/gueff/myMVC) and get it 
 This is a Module for [myMVC](https://github.com/gueff/myMVC) which integrates the Idolon Image Server (https://github.com/gueff/idolon). Image Variation Requests become very easy.
 
 ## Dependencies
+- Linux
 - php 7
-- Linux OS
-- shell_exec()
+    - execution of `shell_exec()`
 - imagemagick
 - gueff/idolon 1.0.2
-- [myMVC 1.1.1](https://github.com/gueff/myMVC/releases/tag/1.1.1)
-
+- [myMVC > 1.1.1 (current; dev-master)](https://github.com/gueff/myMVC)
+    - ZIP: https://github.com/gueff/myMVC/archive/master.zip
+      
+       
 ## 1. Download this Repository
 and place it inside myMVC's `modules` folder.
 Name it "Idolon". At the end it must look like this:
@@ -19,15 +21,15 @@ Name it "Idolon". At the end it must look like this:
     config
     modules
         Idolon
-	    Controller
-	    etc
-	    Event
-	    Model
-	    install.sh
-	    README.md
+            Controller
+            etc
+            Event
+            Model
+            install.sh
+            README.md
     public
     composer.json
-    manager.php
+    myMVC.phar
     README.md
 ~~~
 
@@ -53,7 +55,7 @@ setlocale(LC_NUMERIC, 'C');
 /**
  * Idolon config
  */
-$aConfig['IDOLON'] = array(
+$aConfig['MODULE_IDOLON'] = array(
 
     // Token
     // This is the string directly located after domain which indicates an image request
