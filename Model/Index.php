@@ -15,6 +15,8 @@
 namespace Idolon\Model;
 
 
+use MVC\Helper;
+
 /**
  * Index
  * @extends \Idolon
@@ -54,20 +56,25 @@ class Index extends \Idolon
      */
 	public function run()
 	{
+	    $this->createCachePath();
 		$this->getValuesFromRequest()->setIdolonConfig();
-		$aFile = glob($this->_sImagePath . $this->_sImage . '_*');
-		$iFilesExist = count($aFile);
-		$iFilesToDelete = ($iFilesExist - $this->_iMaxCacheFiles);
-
-		for ($i = 0; $i < $iFilesToDelete; $i++)
-		{
-			unlink($aFile[$i]);
-		}
-
 		$bSuccess = $this->serve();
 
 		return $bSuccess;
 	}
+
+    /**
+     * @return bool
+     */
+	protected function createCachePath()
+    {
+        if (false === file_exists($this->_sCachePath) || false === is_dir($this->_sCachePath))
+        {
+            return (boolean) mkdir($this->_sCachePath);
+        }
+
+        return true;
+    }
 
 	/**
 	 * performs a redirect
@@ -198,5 +205,33 @@ class Index extends \Idolon
 		$this->_iMaxCacheFiles = $iMaxCacheFiles;
 		
 		return $this;
-	}	
+	}
+
+    /**
+     * clear cache files
+     */
+	public function __destruct()
+    {
+        $aFile = glob($this->_sCachePath . $this->_sImage . '_*');
+
+        // oldest first
+        array_multisort(
+            array_map( 'filemtime', $aFile ),
+            SORT_NUMERIC,
+            SORT_ASC,
+            $aFile
+        );
+
+        // how many cache files
+        $iFilesExist = count($aFile);
+
+        // how much to delete
+        $iFilesToDelete = ($iFilesExist - $this->_iMaxCacheFiles);
+
+        // delete
+        for ($i = 0; $i < $iFilesToDelete; $i++)
+        {
+            unlink(Helper::secureFilePath($aFile[$i]));
+        }
+    }
 }
