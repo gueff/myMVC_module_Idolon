@@ -66,6 +66,7 @@ class Index implements \MVC\MVCInterface\Controller
 	{
         $bSuccess = $this->_oIdolonModelIndex
 			->setImagePath($this->aConfig['IDOLON_IMAGE_PATH'])
+            ->setCachepath($this->aConfig['IDOLON_CACHE_PATH'])
 			->setIdolonToken($this->aConfig['IDOLON_TOKEN'])
 			->setMaxCacheFilesForImage($this->aConfig['IDOLON_MAX_CACHE_FILES_FOR_IMAGE'])
 			->run()
