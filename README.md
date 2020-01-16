@@ -8,7 +8,7 @@ This is a Module for [myMVC](https://github.com/gueff/myMVC) which integrates th
 - php 7
     - execution of `shell_exec()`
 - imagemagick
-- gueff/idolon 1.0.2
+- gueff/idolon 1.1.0
 - [myMVC > 1.1.1 (current; dev-master)](https://github.com/gueff/myMVC)
     - ZIP: https://github.com/gueff/myMVC/archive/master.zip
       
@@ -64,6 +64,7 @@ $aConfig['MODULE_IDOLON'] = array(
     // Note: Idolon will automatically listen for (/@image/) then.
     '@image' => array(
         'IDOLON_IMAGE_PATH' => $aConfig['MVC_BASE_PATH'] . '/public/images/default/',
+        'IDOLON_CACHE_PATH' => $aConfig['MVC_CACHE_DIR'] . '/Idolon/',
 //        'IDOLON_MAX_CACHE_FILES_FOR_IMAGE' => 10,
 //        'IDOLON_PREVENT_OVERSIZING' => true,
     ),
@@ -71,6 +72,7 @@ $aConfig['MODULE_IDOLON'] = array(
     // Other Images
     '@other' => array(
         'IDOLON_IMAGE_PATH' => $aConfig['MVC_BASE_PATH'] . '/public/images/other/',
+        'IDOLON_CACHE_PATH' => $aConfig['MVC_CACHE_DIR'] . '/Idolon/',
 //        'IDOLON_MAX_CACHE_FILES_FOR_IMAGE' => 10,
 //        'IDOLON_PREVENT_OVERSIZING' => true,
     ),
