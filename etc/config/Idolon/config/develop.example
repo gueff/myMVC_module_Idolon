@@ -15,19 +15,16 @@ $aConfig['MODULE_IDOLON'] = array(
     // Note: Idolon will automatically listen for (/@image/) then.
     '@image' => array(
         'IDOLON_IMAGE_PATH' => $aConfig['MVC_BASE_PATH'] . '/public/images/default/',
-        'IDOLON_CACHE_PATH' => $aConfig['MVC_CACHE_DIR'] . '/Idolon/',
-//        'IDOLON_MAX_CACHE_FILES_FOR_IMAGE' => 10,
-//        'IDOLON_PREVENT_OVERSIZING' => true,
     ),
 
     // Other Images
     '@other' => array(
         'IDOLON_IMAGE_PATH' => $aConfig['MVC_BASE_PATH'] . '/public/images/other/',
-        'IDOLON_CACHE_PATH' => $aConfig['MVC_CACHE_DIR'] . '/Idolon/',
-//        'IDOLON_MAX_CACHE_FILES_FOR_IMAGE' => 10,
-//        'IDOLON_PREVENT_OVERSIZING' => true,
     ),
 
+    // cache dir
+    'IDOLON_CACHE_PATH' => $aConfig['MVC_CACHE_DIR'] . '/Idolon/',
+    
     // how many variations of an image should be stored for maximum
     'IDOLON_MAX_CACHE_FILES_FOR_IMAGE' => 10,
 
