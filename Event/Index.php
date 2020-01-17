@@ -13,6 +13,8 @@
  */
 namespace Idolon\Event;
 
+use MVC\Registry;
+
 /**
  * Index
  */
@@ -84,6 +86,9 @@ class Index
                 : false;
             (!isset($aConfig['IDOLON_PREVENT_OVERSIZING']))
                 ? $aConfig['IDOLON_PREVENT_OVERSIZING'] = \MVC\Registry::get('MODULE_IDOLON')['IDOLON_PREVENT_OVERSIZING']
+                : false;
+            (!isset($aConfig['IDOLON_CACHE_PATH']))
+                ? $aConfig['IDOLON_CACHE_PATH'] = \MVC\Registry::get('MODULE_IDOLON')['IDOLON_CACHE_PATH']
                 : false;
 
             // Start Idolon
