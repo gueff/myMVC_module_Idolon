@@ -106,10 +106,11 @@ $aConfig['MODULE_whatever'] = array(
          * Idolon Image Handler
          * Listen on a specific Token in QueryPath
          */
-        'mvc.controller.begin' => function(\MVC\DataType\DTArrayObject $oDTArrayObject) {
-            \Idolon\Event\Index::startIdolon($oDTArrayObject);
-        },
-
+        'mvc.controller.construct.before' => array(
+            function(\MVC\DataType\DTArrayObject $oDTArrayObject) {
+                \Idolon\Event\Index::startIdolon($oDTArrayObject);
+            }
+        ),
     );
 ~~~
 
