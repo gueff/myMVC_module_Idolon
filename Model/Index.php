@@ -124,8 +124,8 @@ class Index extends \Idolon
 		$aValue = array_values(
 			array_filter(
 				explode(
-					'/', 
-					\MVC\Request::GETCURRENTREQUEST()['path']
+					'/',
+                    \MVC\Request::getCurrentRequest()->get_path()
 				), 
 				function($mValue){
 					return ($mValue !== null && $mValue !== false && $mValue !== '');

@@ -13,7 +13,11 @@
  */
 namespace Idolon\Event;
 
+use MVC\Config;
+use MVC\Debug;
 use MVC\Registry;
+use MVC\Request;
+use MVC\Routing;
 
 /**
  * Index
@@ -74,7 +78,7 @@ class Index
     public static function startIdolon()
     {
         // get token
-        $sToken = current(preg_split('@/@', \MVC\Request::getInstance()->GETCURRENTREQUEST()['path'], NULL, PREG_SPLIT_NO_EMPTY));
+        $sToken = current(preg_split('@/@', Request::getCurrentRequest()->get_path(), 0, PREG_SPLIT_NO_EMPTY));
 
         if (isset(\MVC\Registry::get('MODULE_IDOLON')[$sToken]))
         {
