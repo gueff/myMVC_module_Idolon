@@ -25,8 +25,6 @@ Types of changes:
 
 **changed**
 
-- Adaption to Framwork myMVC 3.2.x
-
 **deprecated**
 
 **removed**  
@@ -38,6 +36,12 @@ Types of changes:
 ---
 
 ## [Releases]
+
+### [2.0.0] - 2023-01-24, https://github.com/mediafinanz/API/releases/tag/2.0.0
+
+**changed**
+
+- Adaption to Framwork myMVC 3.2.x
 
 ### [1.1.0] - 2020-01-17, https://github.com/mediafinanz/API/releases/tag/1.1.0
 
