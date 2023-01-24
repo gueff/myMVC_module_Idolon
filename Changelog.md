@@ -25,7 +25,7 @@ Types of changes:
 
 **changed**
 
-- writing myMVC 3.2.x style: Request::getCurrentRequest()->get_path()
+- Adaption to Framwork myMVC 3.2.x
 
 **deprecated**
 
